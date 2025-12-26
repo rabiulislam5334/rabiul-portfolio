@@ -1,2 +1,24 @@
 @import "tailwindcss";
 @plugin "daisyui";
+.text-outline {
+  -webkit-text-stroke: 1px white;
+}
+/* @keyframes softGlow {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.15);
+  }
+}
+
+.glow-orb {
+  animation: softGlow 8s ease-in-out infinite;
+} */
+.photo-mask {
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}

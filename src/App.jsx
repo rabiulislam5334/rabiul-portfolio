@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect } from "react";
+import Lenis from "@studio-freight/lenis"; // npm install @studio-freight/lenis
+// import Cursor from './components/Cursor';
+import Hero from "./components/Hero";
+import Projects from "./components/Projects";
+import Skills from "./components/Skills";
+import Education from "./components/Education";
+import Cursor from "./components/Cursor";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Contact from "./components/Contact";
+import Experience from "./components/Experience";
 
 function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    // Smooth Scroll Setup
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="bg-[#0a0a0a] text-white selection:bg-purple-600">
+      <Cursor />
+      <Navbar></Navbar>
+      <Hero />
+      <Skills />
+      <Experience></Experience>
+      <Projects />
+      <Education />
+      <Contact></Contact>
+      <Footer></Footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
