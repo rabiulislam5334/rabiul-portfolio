@@ -21,7 +21,7 @@ export const portfolioData = {
     ],
     backend: ["Node.js", "Express.js", "Firebase", "JWT", "REST API"],
     database: ["MongoDB", "Oracle SQL", "PL/SQL", "Oracle APEX"],
-    CMS: ["WordPress", "Elementor", "CrocoBlock", "Divi"],
+    CMS: ["WordPress", "Elementor", "CrocoBlock", "Divi", "WooCommerce"],
   },
 
   projects: [
@@ -65,7 +65,7 @@ export const portfolioData = {
     {
       title: "Daily App",
       subtitle: "App Management Platform",
-      image: "/skillnew.png",
+      image: "/appnew.png",
       desc: "Built modern UI using React + Tailwind.",
       tech: ["React.js", "Vite", "Tailwind"],
       link: "https://daily-app-bgm.pages.dev/",
