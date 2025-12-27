@@ -27,7 +27,7 @@ export const portfolioData = {
   projects: [
     {
       title: "LocalChefBazaar",
-      image: "/krishilink.PNG",
+      image: "/local.png",
       subtitle: "MERN Marketplace",
       desc: "Full-stack marketplace with role-based access control, Stripe payment, and real-time status updates.",
       tech: [
@@ -44,7 +44,7 @@ export const portfolioData = {
     },
     {
       title: "Krishi Link",
-      image: "../src/assets/krishinew.png",
+      image: "/krishinew.png",
       subtitle: "Smart Agriculture Marketplace",
       desc: "Implemented dynamic product route, image preview & search system with MERN stack.",
       tech: ["React.js", "Express.js", "MongoDB", "Firebase"],
@@ -54,7 +54,7 @@ export const portfolioData = {
     },
     {
       title: "Skill Swipe",
-      image: "../src/assets/skillnew.png",
+      image: "/skillnew.png",
       subtitle: "Service Management Platform",
       desc: "Built modern UI using React + Tailwind with Firebase Auth and user dashboards.",
       tech: ["React.js", "Vite", "Tailwind", "Firebase"],
@@ -65,7 +65,7 @@ export const portfolioData = {
     {
       title: "Daily App",
       subtitle: "App Management Platform",
-      image: "../src/assets/skillnew.png",
+      image: "/skillnew.png",
       desc: "Built modern UI using React + Tailwind.",
       tech: ["React.js", "Vite", "Tailwind"],
       link: "https://daily-app-bgm.pages.dev/",
