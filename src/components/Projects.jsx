@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink, Code2, Server, Layout } from "lucide-react";
-import { portfolioData } from "../data/portfolioData";
+import { portfolioData } from "../../public/portfolioData";
 
 gsap.registerPlugin(ScrollTrigger);
 

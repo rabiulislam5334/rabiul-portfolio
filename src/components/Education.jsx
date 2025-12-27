@@ -1,6 +1,7 @@
 import React from "react";
 import { Award, GraduationCap, CheckCircle2 } from "lucide-react";
-import { portfolioData } from "../data/portfolioData";
+import { portfolioData } from "../../public/portfolioData";
+// import { portfolioData } from "../data/portfolioData";
 
 const Education = () => {
   return (

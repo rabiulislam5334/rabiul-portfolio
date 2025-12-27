@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import photo from "../assets/Web_Photo_Editor-removebg-preview.png";
-import { portfolioData } from "../data/portfolioData";
+import photo from "../assets/Web_rabiul.jpg";
+
 import { Github, Linkedin, Mail, Download } from "lucide-react";
+import { portfolioData } from "../../public/portfolioData";
 
 const Hero = () => {
   const heroRef = useRef(null);
