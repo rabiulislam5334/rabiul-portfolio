@@ -11,7 +11,7 @@ import Education from "./components/Education";
 import Cursor from "./components/Cursor";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Contact from "./components/Contact";
+import Contact from "./assets/Contact";
 import Experience from "./components/Experience";
 import NotFound from "./components/NotFound";
 import Loader from "./components/Loader";

@@ -27,7 +27,7 @@ export const portfolioData = {
   projects: [
     {
       title: "LocalChefBazaar",
-      image: "../src/assets/local.png",
+      image: "/krishilink.PNG",
       subtitle: "MERN Marketplace",
       desc: "Full-stack marketplace with role-based access control, Stripe payment, and real-time status updates.",
       tech: [
