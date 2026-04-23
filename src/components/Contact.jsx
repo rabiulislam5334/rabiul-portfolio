@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Mail, Phone, Send, MessageCircle } from "lucide-react";
 import Swal from "sweetalert2";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
+  const sectionRef = useRef(null);
+  const leftSideRef = useRef(null);
+  const rightSideRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // বাম দিকের কন্টেন্ট (Contact Info) এনিমেশন
+      gsap.from(leftSideRef.current, {
+        opacity: 0,
+        x: -50,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: leftSideRef.current,
+          start: "top 85%",
+          once: true,
+        },
+      });
+
+      // ডান দিকের ফরম (Contact Form) এনিমেশন
+      gsap.from(rightSideRef.current, {
+        opacity: 0,
+        x: 50,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: rightSideRef.current,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const onSubmit = async (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
     formData.append("access_key", "08f7c7df-8b3f-45e4-ac5a-368aff6ef257");
 
@@ -42,13 +81,15 @@ const Contact = () => {
 
   return (
     <section
+      ref={sectionRef}
       className="w-11/12 mx-auto py-32 border-t border-white/5"
       id="contact"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 overflow-hidden">
+        
         {/* Left Side: Contact Info */}
-        <div data-aos="fade-right">
-          <h2 className="text-5xl font-bold mb-6 italic">
+        <div ref={leftSideRef} className="will-change-transform">
+          <h2 className="text-5xl font-bold mb-6 italic text-white">
             Let's <span className="text-purple-600">Connect</span>
           </h2>
           <p className="text-gray-400 text-lg mb-10 leading-relaxed">
@@ -60,12 +101,12 @@ const Contact = () => {
           <div className="space-y-10">
             {/* Email */}
             <div className="flex items-center gap-6 group">
-              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-purple-600 transition-colors">
+              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-purple-600 transition-colors duration-300">
                 <Mail className="text-white" size={28} />
               </div>
               <a href="mailto:rabiulislam5334@gmail.com" className="block">
                 <p className="text-sm text-gray-400">Email Me</p>
-                <p className="text-xl font-bold group-hover:text-purple-400 transition-colors">
+                <p className="text-xl font-bold group-hover:text-purple-400 transition-colors duration-300">
                   rabiulislam5334@gmail.com
                 </p>
               </a>
@@ -73,12 +114,12 @@ const Contact = () => {
 
             {/* Call */}
             <div className="flex items-center gap-6 group">
-              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-blue-600 transition-colors">
+              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-blue-600 transition-colors duration-300">
                 <Phone className="text-white" size={28} />
               </div>
               <a href="tel:+8801761037099" className="block">
                 <p className="text-sm text-gray-400">Direct Call</p>
-                <p className="text-xl font-bold hover:text-blue-500 transition-colors">
+                <p className="text-xl font-bold group-hover:text-blue-500 transition-colors duration-300">
                   +8801761037099
                 </p>
               </a>
@@ -86,7 +127,7 @@ const Contact = () => {
 
             {/* WhatsApp */}
             <div className="flex items-center gap-6 group">
-              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-green-600 transition-colors">
+              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-green-600 transition-colors duration-300">
                 <MessageCircle className="text-white" size={28} />
               </div>
               <a
@@ -96,7 +137,7 @@ const Contact = () => {
                 className="block"
               >
                 <p className="text-sm text-gray-400">WhatsApp</p>
-                <p className="text-xl font-bold hover:text-green-500 transition-colors">
+                <p className="text-xl font-bold group-hover:text-green-500 transition-colors duration-300">
                   +8801945204318
                 </p>
               </a>
@@ -106,8 +147,8 @@ const Contact = () => {
 
         {/* Right Side: Contact Form */}
         <div
-          className="bg-zinc-900/50 p-8 md:p-10 rounded-[2.5rem] border border-white/5"
-          data-aos="fade-left"
+          ref={rightSideRef}
+          className="bg-zinc-900/50 p-8 md:p-10 rounded-[2.5rem] border border-white/5 will-change-transform"
         >
           <form onSubmit={onSubmit} className="space-y-6">
             <input

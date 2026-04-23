@@ -1,148 +1,155 @@
 import React, { useEffect, useRef } from "react";
+import { ExternalLink, Server, Github, Sparkles } from "lucide-react";
+import { portfolioData } from "../portfolioData";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ExternalLink, Code2, Server, Layout } from "lucide-react";
-import { portfolioData } from "../../public/portfolioData";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const gridRef = useRef(null);
 
   useEffect(() => {
-    const cards = gsap.utils.toArray(".project-card");
-    cards.forEach((card) => {
-      gsap.fromTo(
-        card,
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        // Header Animation
+        gsap.from(headerRef.current, {
+          opacity: 0,
+          y: 30,
           duration: 1,
+          ease: "power3.out",
           scrollTrigger: {
-            trigger: card,
+            trigger: headerRef.current,
             start: "top 90%",
-            end: "top 60%",
-            scrub: 1,
-          },
+          }
+        });
+
+        // Projects Cards Animation
+        if (gridRef.current) {
+          gsap.fromTo(
+            gridRef.current.children,
+            { 
+              opacity: 0, 
+              scale: 0.95,
+              y: 20 
+            },
+            {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.2, // একটির পর একটি কার্ড আসবে
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: gridRef.current,
+                start: "top 80%",
+                once: true,
+              }
+            }
+          );
         }
-      );
-    });
+      }, sectionRef);
+
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
   }, []);
 
   return (
     <section ref={sectionRef} className="w-11/12 mx-auto py-32" id="projects">
       {/* Header Section */}
-      <div className="mb-20">
-        <h4 className="text-purple-500 font-mono tracking-widest mb-2 uppercase text-sm">
-          Portfolio
-        </h4>
-        <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter">
-          Featured <span className="text-purple-600">Works</span>
+      <div ref={headerRef} className="mb-20">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-purple-400 text-xs font-bold tracking-widest uppercase mb-4">
+          <Sparkles size={14} /> My Portfolio
+        </div>
+        <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white">
+          Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Works</span>
         </h2>
-        <div className="h-1.5 w-24 bg-purple-600 mt-4 rounded-full"></div>
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {portfolioData.projects.map((project, index) => (
           <div
             key={index}
-            className="project-card group relative bg-zinc-900/40 rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-purple-500/30 transition-all duration-500 flex flex-col"
+            style={{ opacity: 0 }} // Initial state to avoid flash
+            className="group bg-zinc-900/40 rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-purple-500/30 transition-all duration-500 flex flex-col relative will-change-transform"
           >
-            {/* Project Image/Preview Section */}
-            <div className="h-72 bg-zinc-800/50 relative overflow-hidden border-b border-white/5">
-              {project.image ? (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center opacity-20">
-                  <Code2
-                    size={80}
-                    className="group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-              )}
-              {/* Image Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent opacity-60"></div>
+            {/* Ambient Background Glow */}
+            <div className="absolute -right-20 -top-20 w-64 h-64 bg-purple-600/5 blur-[100px] group-hover:bg-purple-600/10 transition-all duration-700 rounded-full pointer-events-none"></div>
+            
+            {/* Image Preview */}
+            <div className="aspect-video w-full relative overflow-hidden bg-zinc-800">
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+              <div className="absolute inset-0 bg-zinc-950/40 group-hover:bg-transparent transition-colors duration-500"></div>
             </div>
 
             {/* Content Section */}
-            <div className="p-8 md:p-10 flex-grow flex flex-col">
-              <div className="mb-6">
-                <h3 className="text-3xl font-bold group-hover:text-purple-400 transition-colors">
+            <div className="p-8 md:p-10 flex-grow flex flex-col relative z-10">
+              <div className="mb-4">
+                <h3 className="text-3xl font-bold text-white group-hover:text-purple-400 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-purple-500 font-mono font-bold uppercase tracking-[0.2em] text-[10px] mt-2">
+                <p className="text-purple-500 font-bold uppercase tracking-widest text-[10px] mt-1">
                   {project.subtitle}
                 </p>
               </div>
 
-              <p className="text-gray-400 mb-8 leading-relaxed text-sm flex-grow">
-                {project.desc}
+              <p className="text-gray-400 mb-6 text-sm leading-relaxed flex-grow italic">
+                "{project.desc}"
               </p>
 
-              {/* Tech Stack Tags */}
-              <div className="flex flex-wrap gap-2 mb-10">
+              {/* Tech Stack */}
+              <div className="flex flex-wrap gap-2 mb-8">
                 {project.tech.map((t) => (
-                  <span
-                    key={t}
-                    className={`px-3 py-1 rounded-lg text-[10px] font-bold border transition-colors ${
-                      t === "Stripe" || t === "JWT" || t === "MongoDB"
-                        ? "bg-purple-500/10 text-purple-400 border-purple-500/20"
-                        : "bg-zinc-800 text-gray-500 border-white/5"
-                    }`}
-                  >
+                  <span key={t} className="px-3 py-1 bg-white/5 rounded-lg text-[10px] font-bold text-gray-400 border border-white/5 group-hover:border-purple-500/30 transition-colors">
                     {t}
                   </span>
                 ))}
               </div>
 
               {/* Action Buttons */}
-              <div
-                className={`grid gap-4 ${
-                  project.server ? "grid-cols-3" : "grid-cols-2"
-                }`}
-              >
-                <a
-                  href={project.link}
-                  target="_blank"
+              <div className="grid grid-cols-2 gap-3 mt-auto">
+                <a 
+                  href={project.link} 
+                  target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-white text-black hover:bg-purple-600 hover:text-white transition-all transform active:scale-95 shadow-xl shadow-white/5"
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-xs hover:bg-purple-600 hover:text-white transition-all shadow-lg active:scale-95"
                 >
-                  <ExternalLink size={20} />
-                  <span className="text-[9px] font-black uppercase tracking-wider">
-                    Live Demo
-                  </span>
+                  <ExternalLink size={14} /> Demo
                 </a>
-
-                <a
-                  href={project.client}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-zinc-800 text-white hover:bg-zinc-700 transition-all transform active:scale-95"
-                >
-                  <Layout size={20} />
-                  <span className="text-[9px] font-black uppercase tracking-wider">
-                    Client
-                  </span>
-                </a>
+                
+                {project.client && (
+                  <a 
+                    href={project.client} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-zinc-800 text-white font-bold text-xs hover:bg-zinc-700 transition-all border border-white/5 active:scale-95"
+                  >
+                    <Github size={14} /> {project.server ? "Client" : "Github"}
+                  </a>
+                )}
 
                 {project.server && (
-                  <a
-                    href={project.server}
-                    target="_blank"
+                  <a 
+                    href={project.server} 
+                    target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex flex-col items-center justify-center gap-1.5 py-4 rounded-2xl bg-zinc-800 text-white hover:bg-zinc-700 transition-all transform active:scale-95"
+                    className="col-span-2 flex items-center justify-center gap-2 py-3 rounded-xl bg-zinc-800 text-white font-bold text-xs hover:bg-zinc-700 transition-all border border-white/5 active:scale-95"
                   >
-                    <Server size={20} />
-                    <span className="text-[9px] font-black uppercase tracking-wider">
-                      Server
-                    </span>
+                    <Server size={14} /> Server Source
                   </a>
                 )}
               </div>
