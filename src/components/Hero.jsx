@@ -20,10 +20,9 @@ const Hero = () => {
         duration: 1,
         stagger: 0.1,
         ease: "power3.out",
-        delay: 1, // লোডারের টাইম অনুযায়ী অ্যাডজাস্ট করুন
+        delay: 1, 
       });
 
-      // ছবির এনিমেশন (একটু ডিলে দিয়ে)
       gsap.to(photoRef.current, {
         opacity: 1,
         scale: 1,
@@ -33,7 +32,7 @@ const Hero = () => {
         ease: "elastic.out(1, 0.8)",
       });
 
-      // কন্টিনিউয়াস ফ্লোটিং (সারাক্ষণ নড়বে)
+
       gsap.to(".floating-photo", {
         y: -20,
         duration: 3,
