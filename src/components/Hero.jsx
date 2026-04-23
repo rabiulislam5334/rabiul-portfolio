@@ -102,26 +102,30 @@ useEffect(() => {
       </div>
 
       {/* Right Photo Section */}
+      {/* Right Photo Section */}
       <div 
         ref={photoRef}
         className="lg:w-2/5 flex justify-center lg:justify-end mt-16 lg:mt-0 relative z-20 invisible"
       >
         <div className="relative group">
-          <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          {/* Decorative Glow - বেগুনি থেকে সরিয়ে কালো/ডিপ শ্যাডো করা হলো */}
+          <div className="absolute -inset-4 bg-black/40 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
           
           <img
             src={photo}
             alt="Md. Rabiul Islam"
             loading="eager" 
             className="floating-photo relative z-10 w-full max-w-[350px] md:max-w-[450px] lg:max-w-[500px] h-auto object-cover 
-                   drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] 
+                   drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] 
                    transition-transform duration-700 group-hover:scale-[1.03]"
             style={{
               maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
             }}
           />
-          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-2/3 h-10 bg-purple-600/20 blur-3xl -z-10 rounded-full"></div>
+          
+          {/* Shadow beneath photo - বেগুনি সরিয়ে ডিপ কালো/নিশাচর শ্যাডো করা হলো */}
+          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-4/5 h-16 bg-black/60 blur-3xl -z-10 rounded-full opacity-80"></div>
         </div>
       </div>
     </section>
