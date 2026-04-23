@@ -7,35 +7,40 @@ const Hero = () => {
   const heroRef = useRef(null);
   const photoRef = useRef(null);
 
-  useEffect(() => {
+useEffect(() => {
     const ctx = gsap.context(() => {
-      // শুরুতে সব ইনভিজিবল করে রাখা
-      gsap.set(".reveal-text", { opacity: 0, y: 40 });
-      gsap.set(photoRef.current, { opacity: 0, scale: 0.9, x: 20 });
+      // শুরুতে ইনভিজিবল রাখা (visibility: hidden ফ্ল্যাশ আটকাবে)
+      gsap.set([".reveal-text", photoRef.current], { 
+        opacity: 0, 
+        y: 30,
+        visibility: "visible" 
+      });
+      gsap.set(photoRef.current, { scale: 0.95, x: 15 });
 
-      // টেক্সট এনিমেশন (লোডার শেষ হওয়ার পর)
+      // টেক্সট এনিমেশন - ডিলে কমিয়ে ১ সেকেন্ড করা হয়েছে
       gsap.to(".reveal-text", {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: 0.8,
         stagger: 0.1,
         ease: "power3.out",
-        delay: 1, 
+        delay: 0.5, // আপনার লোডার যদি ১ সেকেন্ডের হয়, তবে এটি পারফেক্ট
       });
 
+      // ফটোর এনিমেশন
       gsap.to(photoRef.current, {
         opacity: 1,
         scale: 1,
         x: 0,
-        duration: 1.5,
-        delay: 1.5,
-        ease: "elastic.out(1, 0.8)",
+        duration: 1.2,
+        delay: 1.3, // টেক্সট আসার ঠিক পরেই ছবি আসবে
+        ease: "power2.out",
       });
 
-
+      // ফ্লোটিং এনিমেশন (এটি আগের মতোই থাকবে)
       gsap.to(".floating-photo", {
-        y: -20,
-        duration: 3,
+        y: -15,
+        duration: 2.5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
@@ -57,25 +62,26 @@ const Hero = () => {
       {/* Left Content */}
       <div className="z-10 lg:w-3/5">
         <div className="overflow-hidden mb-6">
-          <div className="reveal-text inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-purple-400 text-xs font-bold tracking-widest uppercase">
+          {/* শুরুতে অদৃশ্য রাখার জন্য invisible ক্লাস যোগ করা হয়েছে */}
+          <div className="reveal-text invisible inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-purple-400 text-xs font-bold tracking-widest uppercase">
             <Sparkles size={14} /> SaaS & Enterprise Architect
           </div>
         </div>
 
         <div className="overflow-hidden">
-          <h1 className="reveal-text text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight uppercase tracking-tighter text-white">
+          <h1 className="reveal-text invisible text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight uppercase tracking-tighter text-white">
             RABIUL <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500">ISLAM</span>
           </h1>
         </div>
 
         <div className="overflow-hidden">
-          <p className="reveal-text max-w-xl text-gray-400 text-lg md:text-xl mb-10 leading-relaxed font-medium">
+          <p className="reveal-text invisible max-w-xl text-gray-400 text-lg md:text-xl mb-10 leading-relaxed font-medium">
             Building high-performance <span className="text-white">Next.js SaaS</span> ecosystems and 
             <span className="text-white"> AI-integrated</span> enterprise solutions with <span className="text-white">TypeScript</span>.
           </p>
         </div>
 
-        <div className="reveal-text flex flex-wrap gap-5 items-center">
+        <div className="reveal-text invisible flex flex-wrap gap-5 items-center">
           <a href="#contact" className="group px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-purple-600 hover:text-white transition-all duration-500 flex items-center gap-2">
             Let's Talk <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
@@ -98,10 +104,9 @@ const Hero = () => {
       {/* Right Photo Section */}
       <div 
         ref={photoRef}
-        className="lg:w-2/5 flex justify-center lg:justify-end mt-16 lg:mt-0 relative z-20"
+        className="lg:w-2/5 flex justify-center lg:justify-end mt-16 lg:mt-0 relative z-20 invisible"
       >
         <div className="relative group">
-          {/* Decorative Glow */}
           <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
           
           <img
@@ -116,8 +121,6 @@ const Hero = () => {
               WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
             }}
           />
-          
-          {/* Shadow beneath photo */}
           <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-2/3 h-10 bg-purple-600/20 blur-3xl -z-10 rounded-full"></div>
         </div>
       </div>

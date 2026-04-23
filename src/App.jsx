@@ -62,7 +62,7 @@ function App() {
     // ২. লোডার কন্ট্রোল (২ সেকেন্ড পর কন্টেন্ট দেখাবে)
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1200);
 
     return () => {
       clearTimeout(timer);

@@ -16,7 +16,7 @@ const Loader = () => {
       exit={{ 
         opacity: 0, 
         scale: 1.05,
-        transition: { duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] } 
+        transition: { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] } 
       }}
       className="fixed inset-0 z-[9999] bg-[#050505] flex items-center justify-center pointer-events-none"
     >
