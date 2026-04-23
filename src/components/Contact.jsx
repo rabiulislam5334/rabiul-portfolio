@@ -120,7 +120,7 @@ const Contact = () => {
               <a href="tel:+8801761037099" className="block">
                 <p className="text-sm text-gray-400">Direct Call</p>
                 <p className="text-xl font-bold group-hover:text-blue-500 transition-colors duration-300">
-                  +8801761037099
+                  +8801945204318
                 </p>
               </a>
             </div>
