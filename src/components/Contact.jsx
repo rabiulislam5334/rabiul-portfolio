@@ -13,31 +13,37 @@ const Contact = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // বাম দিকের কন্টেন্ট (Contact Info) এনিমেশন
-      gsap.from(leftSideRef.current, {
-        opacity: 0,
-        x: -50,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: leftSideRef.current,
-          start: "top 85%",
-          once: true,
-        },
-      });
+      // বাম দিকের কন্টেন্ট এনিমেশন (নিচ থেকে ওপরে মোবাইলের জন্য নিরাপদ)
+      gsap.fromTo(leftSideRef.current, 
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: leftSideRef.current,
+            start: "top 90%",
+            once: true,
+          }
+        }
+      );
 
-      // ডান দিকের ফরম (Contact Form) এনিমেশন
-      gsap.from(rightSideRef.current, {
-        opacity: 0,
-        x: 50,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: rightSideRef.current,
-          start: "top 85%",
-          once: true,
-        },
-      });
+      // ডান দিকের ফরম এনিমেশন
+      gsap.fromTo(rightSideRef.current, 
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: rightSideRef.current,
+            start: "top 90%",
+            once: true,
+          }
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -82,62 +88,57 @@ const Contact = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-11/12 mx-auto py-32 border-t border-white/5"
+      className="w-11/12 mx-auto py-16 lg:py-32 border-t border-white/5"
       id="contact"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
         
         {/* Left Side: Contact Info */}
-        <div ref={leftSideRef} className="will-change-transform">
-          <h2 className="text-5xl font-bold mb-6 italic text-white">
+        <div ref={leftSideRef} className="opacity-0">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 italic text-white leading-tight">
             Let's <span className="text-purple-600">Connect</span>
           </h2>
-          <p className="text-gray-400 text-lg mb-10 leading-relaxed">
+          <p className="text-gray-400 text-base lg:text-lg mb-10 leading-relaxed">
             I am currently open to new opportunities and challenges. Whether you
             have a project in mind or just want to discuss an idea, feel free to
             reach out!
           </p>
 
-          <div className="space-y-10">
+          <div className="space-y-6 lg:space-y-10">
             {/* Email */}
-            <div className="flex items-center gap-6 group">
-              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-purple-600 transition-colors duration-300">
-                <Mail className="text-white" size={28} />
+            <div className="flex items-center gap-4 lg:gap-6 group">
+              <div className="p-3 lg:p-4 bg-zinc-900 rounded-2xl group-hover:bg-purple-600 transition-colors duration-300 shrink-0">
+                <Mail className="text-white" size={24} />
               </div>
-              <a href="mailto:rabiulislam5334@gmail.com" className="block">
-                <p className="text-sm text-gray-400">Email Me</p>
-                <p className="text-xl font-bold group-hover:text-purple-400 transition-colors duration-300">
+              <a href="mailto:rabiulislam5334@gmail.com" className="block min-w-0">
+                <p className="text-xs text-gray-400 uppercase tracking-wider">Email Me</p>
+                <p className="text-base lg:text-xl font-bold group-hover:text-purple-400 transition-colors duration-300 truncate">
                   rabiulislam5334@gmail.com
                 </p>
               </a>
             </div>
 
             {/* Call */}
-            <div className="flex items-center gap-6 group">
-              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-blue-600 transition-colors duration-300">
-                <Phone className="text-white" size={28} />
+            <div className="flex items-center gap-4 lg:gap-6 group">
+              <div className="p-3 lg:p-4 bg-zinc-900 rounded-2xl group-hover:bg-blue-600 transition-colors duration-300 shrink-0">
+                <Phone className="text-white" size={24} />
               </div>
-              <a href="tel:+8801945204318" className="block">
-                <p className="text-sm text-gray-400">Direct Call</p>
-                <p className="text-xl font-bold group-hover:text-blue-500 transition-colors duration-300">
+              <a href="tel:+8801945204318" className="block min-w-0">
+                <p className="text-xs text-gray-400 uppercase tracking-wider">Direct Call</p>
+                <p className="text-base lg:text-xl font-bold group-hover:text-blue-500 transition-colors duration-300">
                   +8801945204318
                 </p>
               </a>
             </div>
 
             {/* WhatsApp */}
-            <div className="flex items-center gap-6 group">
-              <div className="p-4 bg-zinc-900 rounded-2xl group-hover:bg-green-600 transition-colors duration-300">
-                <MessageCircle className="text-white" size={28} />
+            <div className="flex items-center gap-4 lg:gap-6 group">
+              <div className="p-3 lg:p-4 bg-zinc-900 rounded-2xl group-hover:bg-green-600 transition-colors duration-300 shrink-0">
+                <MessageCircle className="text-white" size={24} />
               </div>
-              <a
-                href="https://wa.me/8801945204318"
-                target="_blank"
-                rel="noreferrer"
-                className="block"
-              >
-                <p className="text-sm text-gray-400">WhatsApp</p>
-                <p className="text-xl font-bold group-hover:text-green-500 transition-colors duration-300">
+              <a href="https://wa.me/8801945204318" target="_blank" rel="noreferrer" className="block min-w-0">
+                <p className="text-xs text-gray-400 uppercase tracking-wider">WhatsApp</p>
+                <p className="text-base lg:text-xl font-bold group-hover:text-green-500 transition-colors duration-300">
                   +8801945204318
                 </p>
               </a>
@@ -148,33 +149,36 @@ const Contact = () => {
         {/* Right Side: Contact Form */}
         <div
           ref={rightSideRef}
-          className="bg-zinc-900/50 p-8 md:p-10 rounded-[2.5rem] border border-white/5 will-change-transform"
+          className="opacity-0 bg-zinc-900/50 p-6 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-white/5 relative overflow-hidden"
         >
-          <form onSubmit={onSubmit} className="space-y-6">
+          {/* Ambient Background Glow */}
+          <div className="absolute -right-20 -top-20 w-64 h-64 bg-purple-600/5 blur-[100px] pointer-events-none"></div>
+
+          <form onSubmit={onSubmit} className="space-y-4 lg:space-y-6 relative z-10">
             <input
               type="text"
               name="name"
               required
               placeholder="Your Name"
-              className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-purple-600 transition-all text-white"
+              className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-purple-600 transition-all text-white text-sm lg:text-base"
             />
             <input
               type="email"
               name="email"
               required
               placeholder="Your Email"
-              className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-purple-600 transition-all text-white"
+              className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-purple-600 transition-all text-white text-sm lg:text-base"
             />
             <textarea
               name="message"
               required
               placeholder="Tell me about your project"
               rows="4"
-              className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-purple-600 transition-all text-white"
+              className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-purple-600 transition-all text-white text-sm lg:text-base"
             ></textarea>
             <button
               type="submit"
-              className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-purple-600 hover:text-white transition-all flex items-center justify-center gap-2 shadow-lg active:scale-95"
+              className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-purple-600 hover:text-white transition-all flex items-center justify-center gap-2 shadow-lg active:scale-95 text-sm lg:text-base"
             >
               Send Message <Send size={18} />
             </button>
